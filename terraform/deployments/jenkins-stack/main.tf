@@ -59,7 +59,6 @@ module "application" {
   stack_name    = var.stack_name
   environment   = var.environment
   ami_id        = data.aws_ami.amazon-linux-2.id
-  aws_region    = var.aws_region
   user_data     = templatefile("${path.module}/templates/userdata.tpl", { EFS_ID = module.storage.efs-server-id })
 }
 

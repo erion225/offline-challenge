@@ -3,3 +3,4 @@
 *.tgz
 terraform.tfvars.json
 .DS_Store
+create.tfplan

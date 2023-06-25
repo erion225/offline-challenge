@@ -32,5 +32,7 @@
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_jenkins_url"></a> [jenkins\_url](#output\_jenkins\_url) | Jenkins URL |
 <!-- END_TF_DOCS -->
