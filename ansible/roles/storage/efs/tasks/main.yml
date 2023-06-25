@@ -1,0 +1,20 @@
+- name: Install required packages
+  package:
+    name:
+      - amazon-efs-utils
+    state: present
+
+- name: Mount EFS
+  mount:
+    src: "{{ efs_id }}:/"
+    path: {{ mount_path }}
+    fstype: efs
+    opts: "tls,_netdev,noresvport"
+    state: mounted
+  become: true
+
+- name: Configure EFS in /etc/fstab
+  lineinfile:
+    path: /etc/fstab
+    line: "{{ efs_id }}:/ {{ mount_path }} efs _netdev,noresvport,tls 0 0"
+  become: true

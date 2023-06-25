@@ -1,0 +1,9 @@
+- name: build and start jenkins
+  community.docker.docker_compose:
+    project_src: source/jenkins
+    build: true
+  register: output
+
+- name: Show results
+  ansible.builtin.debug:
+    var: output

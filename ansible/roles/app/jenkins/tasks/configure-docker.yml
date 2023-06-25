@@ -1,0 +1,31 @@
+- name: Install required packages
+  package:
+    name:
+      - docker
+      - docker-compose
+      - python3-pip
+    state: present
+
+- name: Start and enable Docker service
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Add user to the docker group
+  user:
+    name: ec2-user
+    groups: docker
+    append: yes
+
+- name: Upgrade pip package
+  pip:
+    name: pip
+    state: latest
+
+- name: Install Docker Python package
+  pip:
+    name:
+    - docker
+    - docker-compose
+    state: present
