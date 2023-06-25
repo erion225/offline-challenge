@@ -1,9 +1,7 @@
 - name: Install required packages
   package:
     name:
-      - docker
-      - docker-compose
-      - python3-pip
+      - docker-ce
     state: present
 
 - name: Start and enable Docker service
@@ -14,7 +12,7 @@
 
 - name: Add user to the docker group
   user:
-    name: ec2-user
+    name: ubuntu
     groups: docker
     append: yes
 
