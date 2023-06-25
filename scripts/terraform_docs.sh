@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+find . -type f -name "*.tf" -exec dirname {} \; | uniq | sort -u | xargs -I {} sh -c 'terraform-docs markdown --show inputs,outputs,modules,header,providers --output-file README.md --output-mode inject {}'

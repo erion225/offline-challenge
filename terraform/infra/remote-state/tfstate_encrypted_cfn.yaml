@@ -1,0 +1,107 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description:
+  CloudFormation template for S3 resources and DynamoDB creation for Terraform state lock - S3 Backend
+
+Parameters:
+  StackName:
+    Description: Enter Stack Name
+    Type: String
+  Purpose:
+    Description: Enter Purpose
+    Type: String
+  Environment:
+    Description: Enter Environment for the Stack
+    Type: String
+
+Resources:
+  S3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Sub ${StackName}-${Purpose}-${Environment}
+      AccessControl: Private
+      Tags:
+        -
+          Key: Name
+          Value: !Sub ${StackName}-${Purpose}-${Environment}
+        -
+          Key: StackName
+          Value: !Ref StackName
+        -
+          Key: Purpose
+          Value: !Ref Purpose
+        -
+          Key: Environment
+          Value: !Ref Environment
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+        - Id: GlacierRule
+          Prefix: glacier
+          Status: Enabled
+          ExpirationInDays: '365'
+          Transitions:
+            - TransitionInDays: '1'
+              StorageClass: Glacier
+
+  DynamoDbTableS3Backend:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "LockID"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "LockID"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: !Sub ${StackName}-${Purpose}-${Environment}
+
+  KMSKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Authentication key
+      KeyPolicy:
+        Version: '2012-10-17'
+        Id: key-default-1
+        Statement:
+        - Sid: AuthKey
+          Effect: Allow
+          Principal:
+            AWS:
+              - !Sub arn:aws:iam::${AWS::AccountId}:root
+          Action:
+            - kms:Create*
+            - kms:Describe*
+            - kms:Enable*
+            - kms:List*
+            - kms:Put*
+            - kms:Update*
+            - kms:Revoke*
+            - kms:Disable*
+            - kms:Get*
+            - kms:Delete*
+            - kms:ScheduleKeyDeletion
+            - kms:CancelKeyDeletion
+          Resource: '*'
+        - Sid: Allow use of the key
+          Effect: Allow
+          Principal:
+            AWS:
+              - !Sub arn:aws:iam::${AWS::AccountId}:root
+          Action:
+            - kms:Encrypt
+            - kms:Decrypt
+            - kms:ReEncrypt
+            - kms:GenerateDataKey*
+            - kms:DescribeKey
+
+  KMSAlias:
+    Type: "AWS::KMS::Alias"
+    Properties:
+      AliasName:
+        !Sub alias/${StackName}-${Purpose}-key-${Environment}
+      TargetKeyId:
+        !GetAtt KMSKey.Arn

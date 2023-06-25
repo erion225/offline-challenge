@@ -1,0 +1,5 @@
+bucket         = "jenkins-stack-terraform-production"
+encrypt        = "true"
+kms_key_id     = "arn:aws:kms:ap-south-1:501584834092:alias/terraform-lock-key-platform"
+region         = "ap-south-1"
+dynamodb_table = "jenkins-stack-terraform-production"

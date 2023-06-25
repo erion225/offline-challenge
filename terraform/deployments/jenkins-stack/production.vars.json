@@ -1,0 +1,10 @@
+{
+    "stack_name": "jenkins",
+    "environment": "production",
+    "aws_region": "ap-south-1",
+    "vpc_cidr": "172.20.0.0/16",
+    "public_subnet1_cidr": "172.20.10.0/24",
+    "private_subnet1_cidr": "172.20.20.0/24",
+    "instance_port": 8080,
+    "load_balancer_port": 8080
+}
