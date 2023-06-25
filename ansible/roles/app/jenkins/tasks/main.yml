@@ -1,3 +1,2 @@
 ---
-# - include: "configure-docker.yml"
 - include: "build-and-start-jenkins.yml"

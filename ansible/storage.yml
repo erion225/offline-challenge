@@ -1,4 +1,4 @@
 - hosts: jenkins
   roles:
-    - app/jenkins
+    - storage/efs_mount
   tags: jenkins

@@ -7,3 +7,13 @@
 - name: Show results
   ansible.builtin.debug:
     var: output
+
+- name: sleep for 30 secs
+  ansible.builtin.pause:
+    seconds: 30
+
+- name: Verify that jenkins and monitoring components are running
+  ansible.builtin.assert:
+    that:
+      - "not output.services.jenkins.jenkins_jenkins_1.state.running"
+      - "not output.services.jenkins.node-exporter.state.running"
