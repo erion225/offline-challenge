@@ -16,4 +16,4 @@
   ansible.builtin.assert:
     that:
       - "not output.services.jenkins.jenkins_jenkins_1.state.running"
-      - "not output.services.jenkins.node-exporter.state.running"
+      - "not output.services.nodeexporter.jenkins_node-exporter_1.state.running"

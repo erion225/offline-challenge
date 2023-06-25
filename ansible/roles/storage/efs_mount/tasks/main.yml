@@ -1,9 +1,40 @@
-- name: Install required packages
-  package:
-    name:
-      - amazon-efs-utils
+- name: Clone EFS Utils repository
+  git:
+    repo: https://github.com/aws/efs-utils
+    dest: /tmp/efs-utils
+    version: master
+
+- name: Build EFS Utils deb package
+  command:
+    cmd: ./build-deb.sh
+    chdir: /tmp/efs-utils
+
+- name: Find EFS Utils package
+  find:
+    paths: /tmp/efs-utils/build
+    patterns: "amazon-efs-utils*.deb"
+  register: deb_files
+
+- name: Install EFS Utils package
+  apt:
+    deb: "{{ deb_files.files[0].path }}"
     state: present
   become: true
+
+- name: Create directory
+  ansible.builtin.file:
+    path: /jenkins
+    state: directory
+    recurse: yes
+    owner: ubuntu
+    group: ubuntu
+  become: true
+
+- name: Remove temporary files
+  file:
+    path: /tmp/efs-utils
+    state: absent
+    force: true
 
 - name: Mount EFS
   mount:
