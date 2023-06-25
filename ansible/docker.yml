@@ -1,13 +1,14 @@
 - hosts: docker
+  name: Playbook to install docker, docker compose and docker python modules
   vars:
    docker_compose_url: https://github.com/docker/compose/releases/download/v2.13.0/docker-compose-Linux-x86_64
   pre_tasks:
-    - name: Install Docker Compose
-      get_url:
-        url: "{{ docker_compose_url }}"
-        dest: /usr/local/bin/docker-compose
-        mode: 'u+x'
-      become: true
+   - name: Install Docker Compose
+     ansible.builtin.get_url:
+      url: "{{ docker_compose_url }}"
+      dest: /usr/local/bin/docker-compose
+      mode: 'u+x'
+     become: true
   roles:
-    - app/docker
+   - role: app/docker
   tags: docker

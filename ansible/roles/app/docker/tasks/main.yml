@@ -1,2 +1,3 @@
 ---
-- include: "configure-docker.yml"
+- name: Include playbook to install and configure docker tools
+  ansible.builtin.include_tasks: "configure-docker.yml"

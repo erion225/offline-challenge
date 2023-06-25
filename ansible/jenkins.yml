@@ -1,4 +1,5 @@
 - hosts: jenkins
+  name: Playbook to build jenkins docker image with plugins installed and start the container
   roles:
-    - app/jenkins
+    - role: app/jenkins
   tags: jenkins

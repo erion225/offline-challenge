@@ -1,4 +1,5 @@
 - hosts: jenkins
+  name: Playbook to mount efs on the ec2 instance
   roles:
-    - storage/efs_mount
+    - role: storage/efs_mount
   tags: jenkins

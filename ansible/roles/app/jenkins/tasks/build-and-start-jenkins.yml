@@ -1,4 +1,4 @@
-- name: build and start jenkins
+- name: Build and start jenkins
   community.docker.docker_compose:
     project_src: source/jenkins
     build: true
@@ -8,7 +8,7 @@
   ansible.builtin.debug:
     var: output
 
-- name: sleep for 30 secs
+- name: Sleep for 30 secs
   ansible.builtin.pause:
     seconds: 30
 

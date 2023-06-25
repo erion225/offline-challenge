@@ -1,22 +1,22 @@
 - name: Clone EFS Utils repository
-  git:
+  ansible.builtin.git:
     repo: https://github.com/aws/efs-utils
     dest: /tmp/efs-utils
     version: master
 
 - name: Build EFS Utils deb package
-  command:
+  ansible.builtin.command:
     cmd: ./build-deb.sh
     chdir: /tmp/efs-utils
 
 - name: Find EFS Utils package
-  find:
+  ansible.builtin.find:
     paths: /tmp/efs-utils/build
     patterns: "amazon-efs-utils*.deb"
   register: deb_files
 
 - name: Install EFS Utils package
-  apt:
+  ansible.builtin.apt:
     deb: "{{ deb_files.files[0].path }}"
     state: present
   become: true
@@ -25,13 +25,13 @@
   ansible.builtin.file:
     path: /jenkins
     state: directory
-    recurse: yes
+    recurse: true
     owner: ubuntu
     group: ubuntu
   become: true
 
 - name: Remove temporary files
-  file:
+  ansible.builtin.file:
     path: /tmp/efs-utils
     state: absent
     force: true
@@ -39,14 +39,23 @@
 - name: Mount EFS
   mount:
     src: "{{ efs_id }}:/"
-    path: {{ mount_path }}
+    path: "{{ mount_path }}"
     fstype: efs
     opts: "tls,_netdev,noresvport"
     state: mounted
   become: true
 
 - name: Configure EFS in /etc/fstab
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/fstab
     line: "{{ efs_id }}:/ {{ mount_path }} efs _netdev,noresvport,tls 0 0"
+  become: true
+
+- name: Change ownership of jenkins mount
+  ansible.builtin.file:
+    path: /jenkins
+    state: directory
+    recurse: true
+    owner: ubuntu
+    group: ubuntu
   become: true

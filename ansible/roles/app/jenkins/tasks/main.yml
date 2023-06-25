@@ -1,2 +1,3 @@
 ---
-- include: "build-and-start-jenkins.yml"
+- name: Include jenkins image image build and start docker compose stack
+  ansible.builtin.include_tasks: "build-and-start-jenkins.yml"

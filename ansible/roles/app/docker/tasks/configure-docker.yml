@@ -1,6 +1,6 @@
 - name: Install required packages
   become: true
-  package:
+  ansible.builtin.package:
     name:
       - apt-transport-https
       - ca-certificates
@@ -12,7 +12,8 @@
     state: present
 
 - name: Add docker registry
-  shell: |
+  ansible.builtin.shell: |
+    set -o pipefail
     sudo rm -f /etc/apt/keyrings/docker.gpg
     sudo install -m 0755 -d /etc/apt/keyrings
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -24,33 +25,33 @@
   become: true
 
 - name: Install docker
-  apt:
+  ansible.builtin.apt:
     name:
      - docker-ce
-    update_cache: yes
+    update_cache: true
   become: true
 
 - name: Start and enable Docker service
-  service:
+  ansible.builtin.service:
     name: docker
     state: started
     enabled: true
   become: true
 
 - name: Add user to the docker group
-  user:
+  ansible.builtin.user:
     name: ubuntu
     groups: docker
-    append: yes
+    append: true
   become: true
 
 - name: Upgrade pip package
-  pip:
+  ansible.builtin.pip:
     name: pip
     state: latest
 
 - name: Install Docker Python package
-  pip:
+  ansible.builtin.pip:
     name:
     - docker
     - docker-compose
