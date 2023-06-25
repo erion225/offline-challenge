@@ -91,12 +91,14 @@ Resources:
           Principal:
             AWS:
               - !Sub arn:aws:iam::${AWS::AccountId}:root
+              - !Sub arn:aws:iam::${AWS::AccountId}:user/dhruva.kumar
           Action:
             - kms:Encrypt
             - kms:Decrypt
             - kms:ReEncrypt
             - kms:GenerateDataKey*
             - kms:DescribeKey
+          Resource: '*'
 
   KMSAlias:
     Type: "AWS::KMS::Alias"

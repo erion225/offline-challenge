@@ -22,7 +22,7 @@ Terraform state is stored in AWS S3 and locks are maintained in dynamodb. State 
 
 To create above described infrastructure, use template [file](terraform/infra/remote-state/tfstate_encrypted_cfn.yaml)
 
-It is highly recommended to restrict/lockdown KMS key policy to limited users. This can be done by adding AWS principal arns to Key usage of cloudformation template. Once the terraform state store infrastructure is provisioned, update values in below example backend [config](terraform/deployments/jenkins-stack/backend.hcl) to utilize S3 as an encrypted terraform state store
+It is highly recommended to restrict/lockdown KMS key policy to limited users as in template. This can be done by adding AWS principal arns to Key usage of cloudformation template. Once the terraform state store infrastructure is provisioned, update values in below example backend [config](terraform/deployments/jenkins-stack/backend.hcl) to utilize S3 as an encrypted terraform state store
 
 ```hcl
 terraform {
@@ -40,19 +40,16 @@ terraform {
 
 ### Terraform init
 
-- Change directory to `cd deployments/jenkins-stack`
-run `terraform init -backend-config=backend.hcl` to initialize the working directory and download the required provider plugins and modules.
+- Change directory to `cd deployments/jenkins-stack` and run `terraform init -backend-config=backend.hcl` to initialize the working directory and download the required provider plugins and modules.
 
 ### Terraform plan
 
-- Change directory to `cd deployments/jenkins-stack` , change parameters as per your requirements and
-run `terraform plan -input=false -out=create.tfplan`. Review the infra changes in `create.tfplan`
+- Change directory to `cd deployments/jenkins-stack` , change parameters in [file](terraform/deployments/jenkins-stack/production.vars.json) as per your requirements and run `terraform plan -input=false -out=create.tfplan`. Review the infra changes in `create.tfplan`
 
 
 ### Terraform apply
 
-- Change directory to `cd deployments/jenkins-stack`
-run `terraform apply -input=false -out=create.tfplan` and review the infra changes in `create.tfplan`
+- Change directory to `cd deployments/jenkins-stack` and run `terraform apply -input=false -out=create.tfplan` and review the infra changes in `create.tfplan`
 
 
 ## Things to consider
@@ -69,3 +66,4 @@ Below mentioned are the important steps to consider using this solution in produ
 # Destroy stack
 
 This automation creates various infrastructure components. It is recommended to delete, if you are not using them.
+- Change directory to `cd deployments/jenkins-stack` andrun `terraform destroy`
