@@ -1,8 +1,10 @@
 - hosts: jenkins
+  vars:
+   docker_compose_url: https://github.com/docker/compose/releases/download/latest/docker-compose-Linux-x86_64
   pre_tasks:
     - name: Install Docker Compose
       get_url:
-        url: "https://github.com/docker/compose/releases/download/latest/docker-compose-$(uname -s)-$(uname -m)"
+        url: "{{ docker_compose_url }}"
         dest: /usr/local/bin/docker-compose
         mode: 'u+x'
   roles:
