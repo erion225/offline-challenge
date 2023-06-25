@@ -4,7 +4,7 @@
 
 ![Architecture](./images/jenkins_infra.png)
 
-## Contributing
+## Code Quality checks
 
 This solution is enable to check quality of terraform code. The following checks will run on each commit.
 ### pre-commit
