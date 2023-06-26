@@ -1,0 +1,5 @@
+[jenkins]
+52.212.51.51 ansible_user=ubuntu
+
+[docker]
+52.212.51.51 ansible_user=ubuntu

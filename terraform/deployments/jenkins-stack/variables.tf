@@ -1,3 +1,6 @@
+################################################################################
+# Network variables
+################################################################################
 variable "vpc_cidr" {
   description = "The IPv4 CIDR block for the VPC."
   type        = string
@@ -25,6 +28,9 @@ variable "private_subnet1_cidr" {
   }
 }
 
+################################################################################
+# Application, location and capacity variables
+################################################################################
 variable "stack_name" {
   description = "Identify and differentiate resource stacks"
   type        = string

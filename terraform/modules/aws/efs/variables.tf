@@ -1,5 +1,5 @@
 ################################################################################
-# NETWORK RELATED VARS
+# NETWORK VARS
 ################################################################################
 variable "vpc_id" {
   description = "VPC ID"
@@ -25,7 +25,7 @@ variable "allowed_cidrs" {
 }
 
 ################################################################################
-# EFS PERFORMANCE AND ENCRYPTION RELATED CONFIG VARS
+# EFS PERFORMANCE AND ENCRYPTION CONFIG VARS
 ################################################################################
 variable "performance_mode" {
   description = "Performance mode to run in (`generalPurpose` or `maxIO`). See https://aws.amazon.com/premiumsupport/knowledge-center/linux-efs-performance-modes/ for details."
@@ -52,7 +52,7 @@ variable "efs_kms_key_id" {
 }
 
 ################################################################################
-# APPLICATION RELATED VARS
+# APPLICATION VARS
 ################################################################################
 variable "environment" {
   description = "Name of the environment"

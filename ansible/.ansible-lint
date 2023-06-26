@@ -1,0 +1,7 @@
+# FIXME: These errors should be fixed. They are being ignored because this is just for ansible lint config demo purpose
+skip_list:  # or 'warn_list' to show them as warnings
+  - role-name
+  - risky-shell-pipe
+  - package-latest
+  - fqcn[action]
+  - yaml[indentation]

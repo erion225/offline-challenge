@@ -1,5 +1,5 @@
 ################################################################################
-# NETWORK RELATED VARS
+# NETWORK VARS
 ################################################################################
 variable "vpc_id" {
   description = "VPC ID"
@@ -26,7 +26,7 @@ variable "ingress_ports" {
 }
 
 ################################################################################
-# CAPACITY RELATED VARS
+# CAPACITY VARS
 ################################################################################
 variable "instance_type" {
   description = "EC2 Instance type"
@@ -69,7 +69,7 @@ variable "block_device_mappings" {
 }
 
 ################################################################################
-# APPLICATION CONFIG RELATED VARS
+# APPLICATION CONFIG VARS
 ################################################################################
 variable "stack_name" {
   description = "Name of the environment"

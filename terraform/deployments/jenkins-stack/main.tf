@@ -63,7 +63,7 @@ module "application" {
 }
 
 ################################################################################
-# Create Load Balancer
+# Create load balancer
 ################################################################################
 module "loadbalancer" {
   depends_on         = [module.application]

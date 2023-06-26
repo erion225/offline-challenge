@@ -1,3 +1,6 @@
+################################################################################
+# NETWORK VARS
+################################################################################
 variable "vpc_name" {
   description = "Name to be used as identifier for vpc"
   type        = string
@@ -38,6 +41,9 @@ variable "private_subnets" {
   }))
 }
 
+################################################################################
+# APPLICATION CONFIG VARS
+################################################################################
 variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)

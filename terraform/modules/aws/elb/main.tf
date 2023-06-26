@@ -27,7 +27,7 @@ resource "aws_security_group" "elb" {
 }
 
 ################################################################################
-# Load Balancer and Autoscaling attachment
+# Loadbalancer and Autoscaling group attachment
 ################################################################################
 
 resource "aws_elb" "elb" {
