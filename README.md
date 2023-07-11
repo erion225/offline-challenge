@@ -49,7 +49,7 @@ terraform {
 
 ### Terraform apply
 
-- Change directory to `cd deployments/jenkins-stack` and run `terraform apply -input=false -out=create.tfplan` and review the infra changes in `create.tfplan`
+- Change directory to `cd deployments/jenkins-stack` and run `terraform apply -input=false create.tfplan` and review the infra changes in `create.tfplan`
 
 
 ## Things to consider
